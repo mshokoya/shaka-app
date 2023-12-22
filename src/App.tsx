@@ -1,9 +1,9 @@
+import { GridLayout } from "./components/Layout/Grid/Layout";
+
 function App() {
 
   return (
-    <div className="bg-amber-600">
-      Hello World
-    </div>
+  <GridLayout/>
   );
 }
 

@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles.css";
 
+import '/node_modules/react-grid-layout/css/styles.css'
+import '/node_modules/react-resizable/css/styles.css'
+
 import { enableReactTracking } from "@legendapp/state/config/enableReactTracking";
 import { enableReactComponents } from "@legendapp/state/config/enableReactComponents"
 
