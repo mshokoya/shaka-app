@@ -1,9 +1,11 @@
-import { GridLayout } from "./components/Layout/Grid/Layout";
+// import { GridLayout } from "./components/Layout/Grid/Layout";
+import { MongoDBView } from "./modules/mongodb/View";
 
 function App() {
 
   return (
-  <GridLayout/>
+  // <GridLayout/>
+  <MongoDBView />
   );
 }
 
