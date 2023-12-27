@@ -7,9 +7,12 @@ import {
   StaticTreeDataProvider
 } from 'react-complex-tree'
 
+type Props = {
+  
+}
 
 
-export const TreeComp = () => {
+export const TreeComp = ({}: Props) => {
   const data = dbtree('mongodb')
 
   return (
