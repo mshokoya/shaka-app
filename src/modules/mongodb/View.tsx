@@ -1,4 +1,4 @@
-import { DefaultSidebar } from "../../components/Sidebar/DefaultSidebar"
+import { DefaultSidebar } from "../../components/Sidebar/Tree"
 
 export const MongoDBView = () => {
 
