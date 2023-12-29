@@ -8,6 +8,7 @@ export const state$ = observable({
         "testconnkey2": {name: "test app", url: "mongodb://127.0.0.1:500000", host: '', port: '', user: '', password: 'passwordddd', database: '', configPath: '', key: 'testkey2'}
       },
     } as Connection,
+
     data:{
       randomGenInDisplay: { key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
       mongoTableDataID: { key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
@@ -39,6 +40,7 @@ export const state$ = observable({
       randomTreeForMongo: { group: 'mongo', data: '' },
       randomTreeIDForPOSTGRES: { group: 'postgres', data: '' },
     },
+
     display: { // only stores id for corrisponding data & 
       default: {
         mongo: { // default cannot use grid layout... you must create custom grid layout and add default db
@@ -55,9 +57,10 @@ export const state$ = observable({
 
       customLayout1: {
         layout: [
-          { group: 'rangroup1', name: 'display name',  dataId: 'randomGenInDisplay', i: "blue-eyes-dragon", x: 0, y: 0, w: 300, h: 50, isDraggable: true, resizeHandles: ['s' , 'w' , 'e' , 'n' , 'sw' , 'nw' , 'se' , 'ne']},
+          { group: 'rangroup1', name: 'display name',  data: 'randomGenInDisplay', i: "blue-eyes-dragon", x: 0, y: 0, w: 300, h: 50, isDraggable: true, resizeHandles: ['s' , 'w' , 'e' , 'n' , 'sw' , 'nw' , 'se' , 'ne']},
         ]
-      },
+      } as GridLayout
+
     } as Display
   })
 
@@ -72,13 +75,13 @@ export type MongoDisplay = {tree: string, table: string, state: 'mongo'}
 
 export type DefaultDisplay = { 'mongo': MongoDisplay, 'postgres': PostgresDisplay}
 
-export type GridState = {group: string, name: string, data: string, i: string, x: string, y: string, w: string, h: string, isDraggable: boolean, resizeHandles: string[]}
+export type GridState = {group: string, name: string, data: string, i: string, x: number, y: number, w: number, h: number, isDraggable: boolean, resizeHandles: string[]}
 
 export type GridLayout = {
   layout: GridState[]
 }
 
-export type Display = {'default': DefaultDisplay} & Omit<{[item: number]: GridLayout}, 'default'>
+export type Display = {'default': DefaultDisplay} | {[item: string]: GridLayout}
 
   // {
   //   mongodb: {
