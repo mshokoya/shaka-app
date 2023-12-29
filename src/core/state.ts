@@ -10,42 +10,46 @@ export const state$ = observable({
     },
     data:{
       randomGenInDisplay: { key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
-      mongo: { 
-        testkey1: {
-          dbt1: {
-            name: "dbt1",
-            tables: ["coltest1", "coltest2", "coltest3"],
+      mongoTableID: { 
+        group: 'mongo',
+        data: {
+          testkey1: {
+            dbt1: {
+              name: "dbt1",
+              tables: ["coltest1", "coltest2", "coltest3"],
+            },
+            dbt2: {
+              name: "dbt2",
+              tables: ["coltest4", "coltest5", "coltest6"],
+            },
           },
-          dbt2: {
-            name: "dbt2",
-            tables: ["coltest4", "coltest5", "coltest6"],
-          },
-        },
-        testkey2: {
-          dbt3: {
-            name: "dbt3",
-            tables: ["coltest7", "coltest8", "coltest9"],
-          },
-          dbt4: {
-            name: "dbt4",
-            tables: ["coltest10", "coltest11", "coltest12"],
-          },
+          testkey2: {
+            dbt3: {
+              name: "dbt3",
+              tables: ["coltest7", "coltest8", "coltest9"],
+            },
+            dbt4: {
+              name: "dbt4",
+              tables: ["coltest10", "coltest11", "coltest12"],
+            },
+          }
         }
       },
-      randomTreeForMongo: { group: 'mongo', data: ''},
-      randomTreeIDForPOSTGRES: {group: 'postgres', data: ''},
+      randomTreeForMongo: { group: 'mongo', data: '' },
+      randomTreeIDForPOSTGRES: { group: 'postgres', data: '' },
     },
     
     display: {
       mongo: {
-        tree: 'randomTreeForID' // for default module all keys & group will be the given module name
+        tree: 'randomTreeForID', // for default module all keys & group will be the given module name
+        table: 'mongoTableID'
       },
       postgres: {
         tree: 'randomTreeIDForPOSTGRES'
       },
       customLayout1: {
         layout: [
-          { group: 'rangroup1', name: 'display name',  data: 'randomGenInDisplay', i: "blue-eyes-dragon", x: 0, y: 0, w: 300, h: 50, isDraggable: true, resizeHandles: ['s' , 'w' , 'e' , 'n' , 'sw' , 'nw' , 'se' , 'ne']},
+          { group: 'rangroup1', name: 'display name',  dataId: 'randomGenInDisplay', i: "blue-eyes-dragon", x: 0, y: 0, w: 300, h: 50, isDraggable: true, resizeHandles: ['s' , 'w' , 'e' , 'n' , 'sw' , 'nw' , 'se' , 'ne']},
         ]
       },
     }
