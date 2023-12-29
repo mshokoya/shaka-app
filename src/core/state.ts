@@ -7,7 +7,7 @@ export const state$ = observable({
         "testconnkey1": {name: "test app", url: "mongodb://127.0.0.1:27017", host: '', port: '', user: '', password: 'password', database: '', configPath: '', key: 'testkey1'},
         "testconnkey2": {name: "test app", url: "mongodb://127.0.0.1:500000", host: '', port: '', user: '', password: 'passwordddd', database: '', configPath: '', key: 'testkey2'}
       },
-    },
+    } as Connection,
     data:{
       randomGenInDisplay: { key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
       mongoTableDataID: { key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
@@ -48,16 +48,37 @@ export const state$ = observable({
         },
         postgres: {
           tree: 'randomTreeIDForPOSTGRES',
-          state: 'postgres'
+          table: 'postgresTableDataID',
+          state: 'postgres',
         },
-      },
+      } as DefaultDisplay,
+
       customLayout1: {
         layout: [
           { group: 'rangroup1', name: 'display name',  dataId: 'randomGenInDisplay', i: "blue-eyes-dragon", x: 0, y: 0, w: 300, h: 50, isDraggable: true, resizeHandles: ['s' , 'w' , 'e' , 'n' , 'sw' , 'nw' , 'se' , 'ne']},
         ]
       },
-    }
+    } as Display
   })
+
+export type ConnectionState = {name: string, url: string, host: string, port: string, user: string, password: string, database: string, configPath: string, key: string}
+
+export type Connection = {
+  'mongo': Record<string, ConnectionState>
+}
+
+export type PostgresDisplay = {tree: string, table: string, state: 'postgres'}
+export type MongoDisplay = {tree: string, table: string, state: 'mongo'}
+
+export type DefaultDisplay = { 'mongo': MongoDisplay, 'postgres': PostgresDisplay}
+
+export type GridState = {group: string, name: string, data: string, i: string, x: string, y: string, w: string, h: string, isDraggable: boolean, resizeHandles: string[]}
+
+export type GridLayout = {
+  layout: GridState[]
+}
+
+export type Display = {'default': DefaultDisplay} & Omit<{[item: number]: GridLayout}, 'default'>
 
   // {
   //   mongodb: {
