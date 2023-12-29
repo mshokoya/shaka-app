@@ -10,7 +10,8 @@ export const state$ = observable({
     },
     data:{
       randomGenInDisplay: { key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
-      mongoTableID: { 
+      mongoTableDataID: { key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
+      mongo: { 
         group: 'mongo',
         data: {
           testkey1: {
@@ -38,14 +39,17 @@ export const state$ = observable({
       randomTreeForMongo: { group: 'mongo', data: '' },
       randomTreeIDForPOSTGRES: { group: 'postgres', data: '' },
     },
-    
-    display: {
-      mongo: {
-        tree: 'randomTreeForID', // for default module all keys & group will be the given module name
-        table: 'mongoTableID'
-      },
-      postgres: {
-        tree: 'randomTreeIDForPOSTGRES'
+    display: { // only stores id for corrisponding data & 
+      default: {
+        mongo: { // default cannot use grid layout... you must create custom grid layout and add default db
+          tree: 'randomTreeForID', // for default module all keys & group will be the given module name
+          table: 'mongoTableDataID',
+          state: 'mongo',
+        },
+        postgres: {
+          tree: 'randomTreeIDForPOSTGRES',
+          state: 'postgres'
+        },
       },
       customLayout1: {
         layout: [
