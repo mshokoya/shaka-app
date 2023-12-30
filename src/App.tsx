@@ -1,11 +1,11 @@
 // import { GridLayout } from "./components/Layout/Grid/Layout";
-import { MongoDBView } from "./modules/mongodb/View";
+import { MongoDBView } from "./modules/mongo/View";
 
 function App() {
 
   return (
   // <GridLayout/>
-  <MongoDBView />
+  <MongoDBView treeID={'mongoTreeState'} dbState={'mongo'} />
   );
 }
 

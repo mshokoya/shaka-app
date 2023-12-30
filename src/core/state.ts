@@ -1,5 +1,5 @@
 import {observable} from '@legendapp/state';
-import { TreeItem, TreeItemIndex } from 'react-complex-tree';
+import { TreeItem, TreeItemIndex, TreeViewState } from 'react-complex-tree';
 
 
 export const state$ = observable({
@@ -12,7 +12,7 @@ export const state$ = observable({
 
     data:{
       randomGenInDisplay: { group: '', key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] } as DBData,
-      mongoTableDataID: { group: '', key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] } as DBData,
+      mongoTableState: { group: '', key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] } as DBData,
       mongo: { 
         group: 'mongo',
         data: {
@@ -25,7 +25,7 @@ export const state$ = observable({
               name: "dbt2",
               tables: ["coltest4", "coltest5", "coltest6"],
             },
-          },
+          } as DBInfo,
           testkey2: {
             dbt3: {
               name: "dbt3",
@@ -35,19 +35,19 @@ export const state$ = observable({
               name: "dbt4",
               tables: ["coltest10", "coltest11", "coltest12"],
             },
-          }
-        } 
+          } as DBInfo
+        } as DBDataState
       } as DBState,
 
-      randomTreeForMongo: { group: 'mongo', data: {} } as TreeState,
-      randomTreeIDForPOSTGRES: { group: 'postgres', data: {} } as TreeState,
+      mongoTreeState: { group: 'mongo', data: {}, state: {} } as TreeState,
+      randomTreeIDForPOSTGRES: { group: 'postgres', data: {}, state: {} } as TreeState,
     } as Data,
 
     display: { // only stores id for corrisponding data & 
       mongo: { // default cannot use grid layout... you must create custom grid layout and add default db
-        tree: 'randomTreeForID', // for default module all keys & group will be the given module name
-        table: 'mongoTableDataID',
-        state: 'mongo',
+        tree: 'mongoTreeState', // for default module all keys & group will be the given module name
+        table: 'mongoTableState',
+        state: 'mongo', // or connection
       },
       postgres: {
         tree: 'randomTreeIDForPOSTGRES',
@@ -95,7 +95,7 @@ export type DBState = {
   data: DBDataState
 }
 
-export type TreeState = { group: string, data: Record<TreeItemIndex, TreeItem> }
+export type TreeState = { group: string, data: Record<TreeItemIndex, TreeItem>, state: TreeViewState }
 
 export type Data = Record<string, DBData | TreeState | DBState>
 
@@ -247,3 +247,31 @@ export type Data = Record<string, DBData | TreeState | DBState>
   //   },
 
   // },
+
+
+
+
+  // mongoTreeState: { group: 'mongo', data: {
+  //   root: {
+  //     index: 'root',
+  //     isFolder: true,
+  //     children: ['child1', 'child2'],
+  //     data: 'Root item',
+  //   },
+  //   child1: {
+  //     index: 'child1',
+  //     children: [],
+  //     data: 'Child item 1',
+  //   },
+  //   child2: {
+  //     index: 'child2',
+  //     isFolder: true,
+  //     children: ['child3'],
+  //     data: 'Child item 2',
+  //   },
+  //   child3: {
+  //     index: 'child3',
+  //     children: [],
+  //     data: 'Child item 3',
+  //   },
+  // }, state: {} } as TreeState,
