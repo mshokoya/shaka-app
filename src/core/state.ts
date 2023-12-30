@@ -39,8 +39,8 @@ export const state$ = observable({
         } as DBDataState
       } as DBState,
 
-      mongoTreeState: { group: 'mongo', data: {}, state: {} } as TreeState,
-      randomTreeIDForPOSTGRES: { group: 'postgres', data: {}, state: {} } as TreeState,
+      mongoTreeState: { group: 'mongo', data: {}, state: {root: {focusedItem: '', expandedItems: [], selectedItems: []}} } as TreeState,
+      randomTreeIDForPOSTGRES: { group: 'postgres', data: {}, state: {root: {focusedItem: '', expandedItems: [], selectedItems: []}} } as TreeState,
     } as Data,
 
     display: { // only stores id for corrisponding data & 
