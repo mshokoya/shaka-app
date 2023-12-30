@@ -11,7 +11,6 @@ type Props = {
 
 export const Tree = ({state}: Props) => {
 
-
   return (
     <ControlledTreeEnvironment
       items={state.data.peek()}
