@@ -81,7 +81,6 @@ export type GridDisplay = {
 
 export type Display = Record<string, GridDisplay | MongoDisplay | PostgresDisplay>
 
-
 export type DBData = { group: string, key: string, type: string, display: string, module: string, connKey: string, db: string, table: string, fields: string[], data: Record<string, any>[]}
 
 export type DBInfo = { [key: string]: { name: string, tables: string[] }}
