@@ -1,17 +1,18 @@
 import {observable} from '@legendapp/state';
+import { TreeItem, TreeItemIndex } from 'react-complex-tree';
 
 
 export const state$ = observable({
     connection: {
       mongo: {
-        "testconnkey1": {name: "test app", url: "mongodb://127.0.0.1:27017", host: '', port: '', user: '', password: 'password', database: '', configPath: '', key: 'testkey1'},
-        "testconnkey2": {name: "test app", url: "mongodb://127.0.0.1:500000", host: '', port: '', user: '', password: 'passwordddd', database: '', configPath: '', key: 'testkey2'}
+        "testconnkey1": {name: "test app", url: "mongodb://127.0.0.1:27017", host: '', port: '', user: '', password: 'password', database: '', configPath: '', key: 'testkey1'} as ConnectionState,
+        "testconnkey2": {name: "test app", url: "mongodb://127.0.0.1:500000", host: '', port: '', user: '', password: 'passwordddd', database: '', configPath: '', key: 'testkey2'} as ConnectionState
       },
     } as Connection,
 
     data:{
-      randomGenInDisplay: { key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
-      mongoTableDataID: { key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] },
+      randomGenInDisplay: { group: '', key: '', type: 'db', display: 'customLayout1', module: 'mongo', connKey: 'testkey1', db: 'dbt1', table: 'coltest1', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] } as DBData,
+      mongoTableDataID: { group: '', key: '', type: 'db', display: 'mongo', module: 'mongo', connKey: 'testkey2', db: 'dbt3', table: 'coltest8', fields: ["testcol1", "testcol2", "testcol3"], data: [{testcol1: "hello", testcol2: "world", testcol3: "wee"}] } as DBData,
       mongo: { 
         group: 'mongo',
         data: {
@@ -35,32 +36,29 @@ export const state$ = observable({
               tables: ["coltest10", "coltest11", "coltest12"],
             },
           }
-        }
-      },
-      randomTreeForMongo: { group: 'mongo', data: '' },
-      randomTreeIDForPOSTGRES: { group: 'postgres', data: '' },
-    },
+        } 
+      } as DBState,
+
+      randomTreeForMongo: { group: 'mongo', data: {} } as TreeState,
+      randomTreeIDForPOSTGRES: { group: 'postgres', data: {} } as TreeState,
+    } as Data,
 
     display: { // only stores id for corrisponding data & 
-      default: {
-        mongo: { // default cannot use grid layout... you must create custom grid layout and add default db
-          tree: 'randomTreeForID', // for default module all keys & group will be the given module name
-          table: 'mongoTableDataID',
-          state: 'mongo',
-        },
-        postgres: {
-          tree: 'randomTreeIDForPOSTGRES',
-          table: 'postgresTableDataID',
-          state: 'postgres',
-        },
-      } as DefaultDisplay,
-
+      mongo: { // default cannot use grid layout... you must create custom grid layout and add default db
+        tree: 'randomTreeForID', // for default module all keys & group will be the given module name
+        table: 'mongoTableDataID',
+        state: 'mongo',
+      },
+      postgres: {
+        tree: 'randomTreeIDForPOSTGRES',
+        table: 'postgresTableDataID',
+        state: 'postgres',
+      },
       customLayout1: {
         layout: [
           { group: 'rangroup1', name: 'display name',  data: 'randomGenInDisplay', i: "blue-eyes-dragon", x: 0, y: 0, w: 300, h: 50, isDraggable: true, resizeHandles: ['s' , 'w' , 'e' , 'n' , 'sw' , 'nw' , 'se' , 'ne']},
         ]
-      } as GridLayout
-
+      }
     } as Display
   })
 
@@ -77,11 +75,29 @@ export type DefaultDisplay = { 'mongo': MongoDisplay, 'postgres': PostgresDispla
 
 export type GridState = {group: string, name: string, data: string, i: string, x: number, y: number, w: number, h: number, isDraggable: boolean, resizeHandles: string[]}
 
-export type GridLayout = {
+export type GridDisplay = {
   layout: GridState[]
 }
 
-export type Display = {'default': DefaultDisplay} | {[item: string]: GridLayout}
+export type Display = Record<string, GridDisplay | MongoDisplay | PostgresDisplay>
+
+
+export type DBData = { group: string, key: string, type: string, display: string, module: string, connKey: string, db: string, table: string, fields: string[], data: Record<string, any>[]}
+
+export type DBInfo = { [key: string]: { name: string, tables: string[] }}
+
+export type DBDataState = {
+  [key: string]: DBInfo
+}
+
+export type DBState = {
+  group: string,
+  data: DBDataState
+}
+
+export type TreeState = { group: string, data: Record<TreeItemIndex, TreeItem> }
+
+export type Data = Record<string, DBData | TreeState | DBState>
 
   // {
   //   mongodb: {
