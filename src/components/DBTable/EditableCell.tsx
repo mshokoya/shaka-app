@@ -18,7 +18,7 @@ export const EditableCell = ({ getValue, row, column, table }) => {
 
   return (
     <input
-      className='absolute w-full h-[95%] top-0 left-0 p-3 outline-0'
+      className='absolute w-full h-[95%] top-0 left-0 p-3 outline-none'
       value={value.get()}
       onChange={(e) => value.set(e.target.value)}
       onBlur={onBlur}
